@@ -3,10 +3,10 @@ package stylechecksaggregator.adapter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-
-import com.google.common.collect.ImmutableList;
 
 import stylechecksaggregator.model.Issue;
 
@@ -32,7 +32,7 @@ public abstract class StylecheckToolAdapter {
 	 * @param relativeFileNames The relative file names to be analyzed by this adapter.
 	 */
 	protected StylecheckToolAdapter(final List<String> relativeFileNames) {
-		this.relativeFileNames = ImmutableList.copyOf(relativeFileNames);
+		this.relativeFileNames = new ArrayList<>(relativeFileNames);
 	}
 	
 	/**
@@ -67,11 +67,11 @@ public abstract class StylecheckToolAdapter {
 		
 		// Return an empty set if no such property exists
 		if(fileNameString == null) {
-			return ImmutableList.of();
+			return Collections.emptyList();
 		}
 		
 		final String[] parts = fileNameString.split(FILE_NAME_SEPARATOR);		
-		return ImmutableList.copyOf(parts);
+		return Arrays.asList(parts);
 	}
 	
 }

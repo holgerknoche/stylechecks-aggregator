@@ -4,14 +4,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import com.google.common.collect.ImmutableList;
 
 import stylechecksaggregator.adapter.CheckstyleAdapter;
 import stylechecksaggregator.adapter.StylecheckToolAdapter;
@@ -23,7 +22,7 @@ public class StylechecksAggregator {
 	/**
 	 * Contains constructors for all registered tool adapters.
 	 */
-	private static final List<Function<Properties, StylecheckToolAdapter>> KNOWN_ADAPTER_CONSTRUCTORS = ImmutableList.of(CheckstyleAdapter::new);
+	private static final List<Function<Properties, StylecheckToolAdapter>> KNOWN_ADAPTER_CONSTRUCTORS = Arrays.asList(CheckstyleAdapter::new);
 	
 	private static final Class<?> THIS_CLASS = StylechecksAggregator.class;
 	
