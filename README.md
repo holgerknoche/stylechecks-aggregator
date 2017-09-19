@@ -1,0 +1,1 @@
+# stylechecks-aggregator
