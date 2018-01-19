@@ -13,6 +13,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import stylechecksaggregator.adapter.CheckstyleAdapter;
+import stylechecksaggregator.adapter.FindBugsAdapter;
+import stylechecksaggregator.adapter.PMDAdapter;
 import stylechecksaggregator.adapter.StylecheckToolAdapter;
 import stylechecksaggregator.model.Issue;
 import stylechecksaggregator.model.IssueSeverity;
@@ -22,7 +24,7 @@ public class StylechecksAggregator {
 	/**
 	 * Contains constructors for all registered tool adapters.
 	 */
-	private static final List<Function<Properties, StylecheckToolAdapter>> KNOWN_ADAPTER_CONSTRUCTORS = Arrays.asList(CheckstyleAdapter::new);
+	private static final List<Function<Properties, StylecheckToolAdapter>> KNOWN_ADAPTER_CONSTRUCTORS = Arrays.asList(CheckstyleAdapter::new, FindBugsAdapter::new, PMDAdapter::new);
 	
 	private static final Class<?> THIS_CLASS = StylechecksAggregator.class;
 	
