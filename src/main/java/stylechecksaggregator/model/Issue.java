@@ -50,7 +50,7 @@ public class Issue {
 
 	@Override
 	public String toString() {
-		return this.fileName + ", line " + this.lineNumber + ": " + this.message;
+		return String.format("%s (%s) - %s, line %d: %s", this.severity, this.type, this.fileName, this.lineNumber, this.message);
 	}
 	
 }
