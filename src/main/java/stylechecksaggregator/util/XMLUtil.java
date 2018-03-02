@@ -24,10 +24,20 @@ public class XMLUtil {
 	 * @throws IOException If an I/O error occurs
 	 */
 	public static Document parseXMLFile(final String fileName) throws IOException {
+		return parseXMLFile(new File(fileName));
+	}
+	
+	/**
+	 * Parses the given XML file and returns the contained DOM tree.
+	 * @param file The file to parse
+	 * @return The DOM tree
+	 * @throws IOException If an I/O error occurs
+	 */
+	public static Document parseXMLFile(final File file) throws IOException {
 		try {			
 			final DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 			final DocumentBuilder documentBuilder = builderFactory.newDocumentBuilder();
-			final Document document = documentBuilder.parse(new File(fileName));
+			final Document document = documentBuilder.parse(file);
 			
 			return document;
 		} catch (ParserConfigurationException | SAXException e) {

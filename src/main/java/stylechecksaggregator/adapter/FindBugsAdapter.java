@@ -1,6 +1,5 @@
 package stylechecksaggregator.adapter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -18,14 +17,13 @@ import org.w3c.dom.NodeList;
 import stylechecksaggregator.model.Issue;
 import stylechecksaggregator.model.IssueSeverity;
 import stylechecksaggregator.model.IssueType;
-import stylechecksaggregator.util.XMLUtil;
 
 /**
  * Adapter for FindBugs.
  * 
  * @author Holger Knoche
  */
-public class FindBugsAdapter extends StylecheckToolAdapter {
+public class FindBugsAdapter extends XMLBasedToolAdapter {
 
 	private static final String PREFIX = "findbugs.";
 	
@@ -37,19 +35,9 @@ public class FindBugsAdapter extends StylecheckToolAdapter {
 	public FindBugsAdapter(final Properties properties) {
 		super(extractFileNames(FILE_NAMES_PROPERTY, properties));
 	}
-	
+		
 	@Override
-	protected List<Issue> processFile(final String fileName) throws IOException {
-		final Document document = XMLUtil.parseXMLFile(fileName);
-
-		try {
-			return this.processFindBugsDocument(document);
-		} catch (final XPathExpressionException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	private List<Issue> processFindBugsDocument(final Document document) throws XPathExpressionException {
+	protected List<Issue> processDocument(final Document document) throws XPathExpressionException {
 		final XPath xPath = XPathFactory.newInstance().newXPath();
 		final NodeList bugNodes = (NodeList) xPath.evaluate("/BugCollection/BugInstance", document.getDocumentElement(), XPathConstants.NODESET);
 	

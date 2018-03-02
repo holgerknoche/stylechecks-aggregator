@@ -1,6 +1,5 @@
 package stylechecksaggregator.adapter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -18,14 +17,13 @@ import org.w3c.dom.NodeList;
 import stylechecksaggregator.model.Issue;
 import stylechecksaggregator.model.IssueSeverity;
 import stylechecksaggregator.model.IssueType;
-import stylechecksaggregator.util.XMLUtil;
 
 /**
  * Adapter for CheckStyle.
  * 
  * @author Holger Knoche
  */
-public class CheckstyleAdapter extends StylecheckToolAdapter {
+public class CheckstyleAdapter extends XMLBasedToolAdapter {
 	
 	private static final String PREFIX = "checkstyle.";
 	
@@ -37,19 +35,9 @@ public class CheckstyleAdapter extends StylecheckToolAdapter {
 	public CheckstyleAdapter(final Properties properties) {
 		super(extractFileNames(FILE_NAMES_PROPERTY, properties));
 	}
-
-	@Override
-	public List<Issue> processFile(final String fileName) throws IOException {
-		final Document document = XMLUtil.parseXMLFile(fileName);
-		
-		try {
-			return this.processCheckstyleDocument(document);
-		} catch (final XPathExpressionException e) {
-			throw new RuntimeException(e);
-		}
-	}
 	
-	private List<Issue> processCheckstyleDocument(final Document document) throws XPathExpressionException {
+	@Override
+	protected List<Issue> processDocument(final Document document) throws XPathExpressionException {
 		final XPath xPath = XPathFactory.newInstance().newXPath();
 		final NodeList fileNodes = (NodeList) xPath.evaluate("/checkstyle/file", document.getDocumentElement(), XPathConstants.NODESET);
 	
